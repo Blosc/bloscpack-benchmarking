@@ -17,6 +17,7 @@ import numpy as np
 from numpy.random import randn
 import pandas as pd
 import bloscpack as bp
+import bloscpack.sysutil as bps
 import joblib as jb
 import sh
 import yaml
@@ -120,7 +121,7 @@ def vtimeit(stmt, setup=noop, before=noop, after=noop, repeat=3, number=3):
 
 def drop_caches():
     """ Drop linux file system caches. """
-    bp.drop_caches()
+    bps.drop_caches()
 
 
 def sync():
