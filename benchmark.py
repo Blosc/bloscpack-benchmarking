@@ -10,6 +10,7 @@ import gc
 import os
 from time import time
 from collections import OrderedDict as od
+import random
 
 import progressbar as pbar
 import numpy as np
@@ -342,15 +343,18 @@ if __name__ == '__main__':
                     for level in codec_levels[codec]:
                         sets.append((size, type_, entropy, codec, level))
 
+    # shuffle the sets, so that
+    random.shuffle(sets)
+
     # setup output DataFrame
     n = len(sets)
-    colum_values = od(zip(columns, zip(*sets)))
-    colum_values['compress'] = np.zeros(n)
-    colum_values['decompress'] = np.zeros(n)
-    colum_values['dc_no_cache'] = np.zeros(n)
-    colum_values['ratio'] = np.zeros(n)
+    column_values = od(zip(columns, zip(*sets)))
+    column_values['compress'] = np.zeros(n)
+    column_values['decompress'] = np.zeros(n)
+    column_values['dc_no_cache'] = np.zeros(n)
+    column_values['ratio'] = np.zeros(n)
 
-    results = pd.DataFrame(colum_values)
+    results = pd.DataFrame(column_values)
 
     # define an atexit handler in case something goes wrong
     def temp_result():
