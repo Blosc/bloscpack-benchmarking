@@ -1,0 +1,4 @@
+progressbar
+joblib
+sh
+numpy
