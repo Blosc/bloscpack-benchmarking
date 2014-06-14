@@ -295,18 +295,17 @@ if __name__ == '__main__':
         fp.write(conf)
     print 'config saved to: ' + conf_file
 
-
     # set up experimental parameters
     dataset_sizes = od([('small', 1e4),
-                        ('mid', 1e7),
-                        ('large', 2e8),
+                        #('mid', 1e7),
+                        #('large', 2e8),
                         ])
     storage_types = od([('ssd', '/tmp/bench'),
-                        ('sd', '/mnt/sd/bench'),
+                        #('sd', '/mnt/sd/bench'),
                         ])
     entropy_types = od([('low', make_simple_dataset),
-                        ('medium', make_complex_dataset),
-                        ('high', make_random_dataset),
+                        #('medium', make_complex_dataset),
+                        #('high', make_random_dataset),
                         ])
     codecs = od([('bloscpack', BloscpackRunner()),
                  ('npz', NPZRunner()),
