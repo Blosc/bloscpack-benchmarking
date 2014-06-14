@@ -295,21 +295,14 @@ if __name__ == '__main__':
         fp.write(conf)
     print 'config saved to: ' + conf_file
 
-    # configure and check locations
-    ssd = '/tmp/bench'
-    sd = '/mnt/sd/bench'
-
-    for location in [ssd, sd]:
-        if not os.path.isdir(location):
-            raise Exception("Path: '%s' does not exist!" % location)
 
     # set up experimental parameters
     dataset_sizes = od([('small', 1e4),
                         ('mid', 1e7),
                         ('large', 2e8),
                         ])
-    storage_types = od([('ssd', ssd),
-                        ('sd', sd),
+    storage_types = od([('ssd', '/tmp/bench'),
+                        ('sd', '/mnt/sd/bench'),
                         ])
     entropy_types = od([('low', make_simple_dataset),
                         ('medium', make_complex_dataset),
@@ -326,6 +319,10 @@ if __name__ == '__main__':
                        ('npy', [0, ]),
                        ('zfile', [1, 3, 7]),
                        ])
+
+    for name, location in storage_types.items():
+        if not os.path.isdir(location):
+            raise Exception("Path %s at: '%s' does not exist!" % (name, location))
 
     columns = ['size',
                'storage',
