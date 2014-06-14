@@ -176,7 +176,7 @@ class AbstractRunner(object):
         if os.path.isfile(self.storage):
             os.remove(self.storage)
         sync()
-        drop_caches
+        drop_caches()
 
     def deconfigure(self):
         """ Delete any storage internal to the instantiated object. """
@@ -270,7 +270,7 @@ class ZFileRunner(AbstractRunner):
         if os.path.isfile(self.real_data):
             os.remove(self.real_data)
         sync()
-        drop_caches
+        drop_caches()
 
     def compress(self):
         jb.dump(self.ndarray, self.storage, compress=self.level, cache_size=0)
