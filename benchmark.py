@@ -203,17 +203,15 @@ class BloscpackRunner(AbstractRunner):
 
     def __init__(self):
         self.name = 'bloscpack'
-        self.blosc_args = bp.DEFAULT_BLOSC_ARGS
-        self.bloscpack_args = bp.DEFAULT_BLOSCPACK_ARGS
-        self.bloscpack_args = {'offsets': False,
-                               'checksum': 'None',
-                               'max_app_chunks': 0}
+        self.bloscpack_args = bp.BloscpackArgs(offsets=False,
+                                               checksum='None',
+                                               max_app_chunks=0)
         self.filename = 'array.blp'
 
     def compress(self):
-        blosc_args = self.blosc_args.copy()
-        blosc_args['clevel'] = self.level
-        bp.pack_ndarray_file(self.ndarray, self.storage,
+        blosc_args = bp.BloscArgs(clevel=self.level)
+        bp.pack_ndarray_file(self.ndarray,
+                             self.storage,
                              blosc_args=blosc_args,
                              bloscpack_args=self.bloscpack_args)
 
