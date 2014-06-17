@@ -21,6 +21,7 @@ import bloscpack.sysutil as bps
 import joblib as jb
 import sh
 import yaml
+import tables
 
 
 def noop():
@@ -282,6 +283,30 @@ class ZFileRunner(AbstractRunner):
         return (float(self.storage_size) /
                 (self.ndarray.size * self.ndarray.dtype.itemsize))
 
+
+class PyTablesRunner(AbstractRunner):
+
+    def __init__(self):
+        self.name = 'pytables'
+        self.filename = 'array.hdf5'
+
+    def compress(self):
+        f = tables.open_file(self.storage, 'w')
+        if self.level != 0:
+            filters = tables.Filters(complevel=self.level,
+                                     complib='blosc',
+                                     fletcher32=False)
+        else:
+            filters = tables.Filters(fletcher32=False)
+        f.create_carray('/', 'array', obj=self.ndarray, filters=filters)
+        f.close()
+
+    def decompress(self):
+        f = tables.open_file(self.storage)
+        n = f.get_node('/', 'array')
+        it = n.read()
+        f.close()
+
 if __name__ == '__main__':
 
     success = False
@@ -308,12 +333,14 @@ if __name__ == '__main__':
                         #('high', make_random_dataset),
                         ])
     codecs = od([('bloscpack', BloscpackRunner()),
+                 ('tables', PyTablesRunner()),
                  ('npz', NPZRunner()),
                  ('npy', NPYRunner()),
                  ('zfile', ZFileRunner()),
                  ])
 
     codec_levels = od([('bloscpack', [1, 3, 7, 9]),
+                       ('tables', [0, 1, 3, 7, 9]),
                        ('npz', [1, ]),
                        ('npy', [0, ]),
                        ('zfile', [1, 3, 7]),
