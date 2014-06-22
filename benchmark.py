@@ -477,7 +477,7 @@ if __name__ == '__main__':
                                                    repeat=repeat))
 
         codec.clean()
-        pbar.update(i)
+        pbar.update()
 
     pbar.finish()
     success = True
