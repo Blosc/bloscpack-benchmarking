@@ -317,6 +317,7 @@ class PyTablesRunner(AbstractRunner):
 
 if __name__ == '__main__':
 
+    print "----------------------------------"
     success = False
 
     # handle configuration
@@ -327,6 +328,7 @@ if __name__ == '__main__':
     with open(conf_file, 'w') as fp:
         fp.write(conf)
     print 'config saved to: ' + conf_file
+    print "----------------------------------"
 
     # set up experimental parameters
     dataset_sizes = od([('small', 131072),
@@ -382,6 +384,22 @@ if __name__ == '__main__':
 
     # shuffle the sets, so that
     random.shuffle(sets)
+
+    # print configuration
+    for name, config_dict in [('dataset_sizes', dataset_sizes),
+                              ('storage_types', storage_types),
+                              ('complexity_types', complexity_types),
+                              ('codecs', codecs),
+                              ('codec_levels', codec_levels),
+                              ]:
+            print name
+            for k,v in config_dict.items():
+                print "    ","%-20s %-20s" % (k,v)
+
+    print "Total number of configurations: %d" % len(sets)
+    print "----------------------------------"
+
+    sys.exit()
 
     # setup output DataFrame
     n = len(sets)
