@@ -419,12 +419,12 @@ if __name__ == '__main__':
     atexit.register(temp_result)
 
     # setup the progressbar
-    class Counter(pbar.Widget):
+    class Display(pbar.Widget):
         """Displays the current count."""
 
         def update(self, pbar):
             try:
-                return str(sets[pbar.currval-1])
+                return str(sets[pbar.currval])
             except IndexError:
                 return ''
     widgets = ['Benchmark: ',
@@ -432,7 +432,7 @@ if __name__ == '__main__':
                ' ',
                pbar.Counter(), '/', str(n),
                ' ',
-               Counter(),
+               Display(),
                ' ',
                pbar.Bar(marker='-'),
                ' ',
