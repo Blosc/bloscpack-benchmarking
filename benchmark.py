@@ -328,8 +328,8 @@ if __name__ == '__main__':
     print 'config saved to: ' + conf_file
 
     # set up experimental parameters
-    dataset_sizes = od([('small', 1e4),
-                        #('mid', 1e7),
+    dataset_sizes = od([('small', 131072),
+                        ('mid', 1310720),
                         #('large', 2e8),
                         ])
     storage_types = od([('ssd', '/tmp/bench'),
