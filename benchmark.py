@@ -14,7 +14,7 @@ import random
 
 import progressbar as pbar
 import numpy as np
-from numpy.random import randn
+from numpy.random import randn, poisson
 import pandas as pd
 import bloscpack as bp
 import bloscpack.sysutil as bps
@@ -149,9 +149,13 @@ def make_sin_dataset(size):
     return it
 
 
-def make_random_dataset(size):
-    """ Make a bunch of random numbers. """
+def make_gaussian_dataset(size):
+    """ Make a bunch of zero mean unit variance gaussian random numbers. """
     return randn(size)
+
+
+def make_poisson_dataset(size):
+    return poisson(5, size)
 
 
 def reduce(result):
