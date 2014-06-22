@@ -319,6 +319,7 @@ if __name__ == '__main__':
 
     print "----------------------------------"
     success = False
+    start = time()
 
     # handle configuration
     result_file_name = gen_results_filename()
@@ -481,6 +482,8 @@ if __name__ == '__main__':
 
     pbar.finish()
     success = True
+    end = time()
     result_csv = result_file_name + '.csv'
     results.to_csv(result_csv, index_label='id')
     print 'results saved to: ' + result_csv
+    print 'total execution time: %s' % str(datetime.timedelta(seconds=end-start))
