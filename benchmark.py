@@ -297,7 +297,7 @@ class PyTablesRunner(AbstractRunner):
                                      complib='blosc',
                                      fletcher32=False)
         else:
-            filters = tables.Filters(fletcher32=False)
+            filters = None
         f.create_carray('/', 'array', obj=self.ndarray, filters=filters)
         f.close()
 
