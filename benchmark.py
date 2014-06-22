@@ -134,6 +134,9 @@ def make_arange_dataset(size):
     """ Make the dataset using arange"""
     return np.arange(size)
 
+def make_linspace_dataset(size):
+    return np.linspace(0, 1, size)
+
 
 def make_sin_dataset(size):
     """ Make the dataset with medium entropy. """
