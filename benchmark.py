@@ -336,10 +336,12 @@ if __name__ == '__main__':
     storage_types = od([('ssd', '/tmp/bench'),
                         #('sd', '/mnt/sd/bench'),
                         ])
-    entropy_types = od([('low', make_simple_dataset),
-                        #('medium', make_complex_dataset),
-                        #('high', make_random_dataset),
-                        ])
+    complexity_types = od([('arange', make_arange_dataset),
+                           ('linspace', make_linspace_dataset),
+                           ('poisson', make_poisson_dataset),
+                           #('medium', make_complex_dataset),
+                           #('high', make_random_dataset),
+                           ])
     codecs = od([('bloscpack', BloscpackRunner()),
                  ('tables', PyTablesRunner()),
                  ('npz', NPZRunner()),
@@ -360,7 +362,7 @@ if __name__ == '__main__':
 
     columns = ['size',
                'storage',
-               'entropy',
+               'complexity',
                'codec',
                'level',
                'compress',
@@ -373,10 +375,10 @@ if __name__ == '__main__':
     # can't use itertools.product, because level depends on codec
     for size in dataset_sizes:
         for type_ in storage_types:
-            for entropy in entropy_types:
+            for complexity in complexity_types:
                 for codec in codecs:
                     for level in codec_levels[codec]:
-                        sets.append((size, type_, entropy, codec, level))
+                        sets.append((size, type_, complexity, codec, level))
 
     # shuffle the sets, so that
     random.shuffle(sets)
@@ -424,7 +426,7 @@ if __name__ == '__main__':
 
     # go johnny go, go!
     for i, it in enumerate(sets):
-        size, storage, entropy, codec, level = it
+        size, storage, complexity, codec, level = it
 
         if size == 'small':
             number = 10
@@ -439,7 +441,7 @@ if __name__ == '__main__':
             raise RuntimeError("No such size: '%s'" % size)
 
         codec = codecs[codec]
-        codec.configure(entropy_types[entropy](dataset_sizes[size]),
+        codec.configure(complexity_types[complexity](dataset_sizes[size]),
                         storage_types[storage], level)
 
         results['compress'][i] = reduce(vtimeit(codec.compress,
