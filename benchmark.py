@@ -465,5 +465,5 @@ if __name__ == '__main__':
     pbar.finish()
     success = True
     result_csv = result_file_name + '.csv'
-    results.to_csv(result_csv)
+    results.to_csv(result_csv, index_label='id')
     print 'results saved to: ' + result_csv
