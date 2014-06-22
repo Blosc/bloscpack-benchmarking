@@ -443,6 +443,7 @@ if __name__ == '__main__':
 
     # go johnny go, go!
     for i, it in enumerate(sets):
+        pbar.update(i)
         size, storage, complexity, codec, level = it
 
         if size == 'small':
@@ -477,7 +478,6 @@ if __name__ == '__main__':
                                                    repeat=repeat))
 
         codec.clean()
-        pbar.update()
 
     pbar.finish()
     success = True
