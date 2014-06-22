@@ -130,12 +130,12 @@ def sync():
     os.system('sync')
 
 
-def make_simple_dataset(size):
-    """ Make the dataset with low entropy. """
+def make_arange_dataset(size):
+    """ Make the dataset using arange"""
     return np.arange(size)
 
 
-def make_complex_dataset(size):
+def make_sin_dataset(size):
     """ Make the dataset with medium entropy. """
     x = np.linspace(0, np.pi*2, 1e3)
     x = np.tile(x, size / len(x))
