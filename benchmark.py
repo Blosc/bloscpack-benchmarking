@@ -399,7 +399,6 @@ if __name__ == '__main__':
     print "Total number of configurations: %d" % len(sets)
     print "----------------------------------"
 
-    sys.exit()
 
     # setup output DataFrame
     n = len(sets)
