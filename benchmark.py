@@ -385,22 +385,24 @@ if __name__ == '__main__':
                         sets.append((size, type_, complexity, codec, level))
 
     # shuffle the sets, so that
-    random.shuffle(sets)
+    #random.shuffle(sets)
 
-    # print configuration
-    for name, config_dict in [('dataset_sizes', dataset_sizes),
-                              ('storage_types', storage_types),
-                              ('complexity_types', complexity_types),
-                              ('codecs', codecs),
-                              ('codec_levels', codec_levels),
-                              ]:
-            print name
-            for k,v in config_dict.items():
-                print "    ","%-20s %-20s" % (k,v)
-
+    # make a huge dict
+    expconfig = dict([('dataset_sizes', dict((dataset_sizes.items()))),
+                    ('storage_types', dict((storage_types.items()))),
+                    ('complexity_types', list((complexity_types.keys()))),
+                    ('codecs', list((codecs.keys()))),
+                    ('codec_levels', dict((((k,str(v)) for (k,v) in codec_levels.items())))),
+                    ('total datums', len(sets)),
+                    ])
+    expconfig = yaml.dump(expconfig, default_flow_style=False)
+    print expconfig
+    expconfig_file = result_file_name + '.expconfig.yaml'
+    with open(expconfig_file, 'w') as fp:
+        fp.write(expconfig)
+    print 'experimental config saved to: ' + expconfig_file
     print "Total number of configurations: %d" % len(sets)
     print "----------------------------------"
-
 
     # setup output DataFrame
     n = len(sets)
