@@ -385,7 +385,7 @@ if __name__ == '__main__':
                         sets.append((size, type_, complexity, codec, level))
 
     # shuffle the sets, so that
-    #random.shuffle(sets)
+    random.shuffle(sets)
 
     # make a huge dict
     expconfig = dict([('dataset_sizes', dict((dataset_sizes.items()))),
