@@ -324,12 +324,12 @@ if __name__ == '__main__':
 
     # handle configuration
     result_file_name = gen_results_filename()
-    conf = yaml.dump(extract_config(), default_flow_style=False)
-    print conf
-    conf_file = result_file_name + '.info.yaml'
-    with open(conf_file, 'w') as fp:
-        fp.write(conf)
-    print 'config saved to: ' + conf_file
+    sysconfig = yaml.dump(extract_config(), default_flow_style=False)
+    print sysconfig
+    sysconfig_file = result_file_name + '.sysconfig.yaml'
+    with open(sysconfig_file, 'w') as fp:
+        fp.write(sysconfig)
+    print 'sysconfig saved to: ' + sysconfig_file
     print "----------------------------------"
 
     # set up experimental parameters
