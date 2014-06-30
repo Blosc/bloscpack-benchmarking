@@ -1,7 +1,17 @@
+import pandas as pd
 import pylab as plt
+
+pd.set_option('display.width', 120)
 plt.rcParams.update({'font.size': 10})
 
-def result_filter(storage, size, codecs):
+
+def load_results_file(filename):
+    df = pd.read_csv(filename)
+    df = df.set_index(['size', 'storage', 'complexity', 'codec', 'level'])
+    return df
+
+
+def result_filter(df, storage, size, codecs):
     # consider only ssd storage
     it = df[df['storage'] == storage]
     # consider only large test size
