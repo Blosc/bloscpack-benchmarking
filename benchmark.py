@@ -231,7 +231,7 @@ class BloscpackRunner(AbstractRunner):
         self.filename = 'array.blp'
 
     def compress(self):
-        blosc_args = bp.BloscArgs(clevel=self.level, cname=self.clevel)
+        blosc_args = bp.BloscArgs(clevel=self.level, cname=self.cname)
         bp.pack_ndarray_file(self.ndarray,
                              self.storage,
                              blosc_args=blosc_args,
