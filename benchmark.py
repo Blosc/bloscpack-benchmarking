@@ -472,7 +472,10 @@ if __name__ == '__main__':
             repeat = 5
         elif size == 'large':
             number = 3
-            repeat = 3
+            repeat = 1
+        elif size == 'xlarge':
+            number = 3
+            repeat = 1
         else:
             raise RuntimeError("No such size: '%s'" % size)
 
