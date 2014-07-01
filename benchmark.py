@@ -222,15 +222,16 @@ class BloscpackRunner(AbstractRunner):
     Files are generated without checksums, offsets and no preallocated chunks.
     """
 
-    def __init__(self):
-        self.name = 'bloscpack'
+    def __init__(self, cname='blosclz'):
+        self.name = 'bloscpack_%s' % cname
+        self.cname = cname
         self.bloscpack_args = bp.BloscpackArgs(offsets=False,
                                                checksum='None',
                                                max_app_chunks=0)
         self.filename = 'array.blp'
 
     def compress(self):
-        blosc_args = bp.BloscArgs(clevel=self.level)
+        blosc_args = bp.BloscArgs(clevel=self.level, cname=self.clevel)
         bp.pack_ndarray_file(self.ndarray,
                              self.storage,
                              blosc_args=blosc_args,
@@ -356,14 +357,23 @@ if __name__ == '__main__':
                            #('medium', make_complex_dataset),
                            #('high', make_random_dataset),
                            ])
-    codecs = od([('bloscpack', BloscpackRunner()),
+    codecs = od([('bloscpack_blosclz', BloscpackRunner()),
+                 ('bloscpack_lz4', BloscpackRunner(cname='lz4')),
+                 ('bloscpack_lz4hc', BloscpackRunner(cname='lz4hc')),
+                 ('bloscpack_snappy', BloscpackRunner(cname='snappy')),
+                 ('bloscpack_zlib', BloscpackRunner(cname='zlib')),
                  ('tables', PyTablesRunner()),
                  ('npz', NPZRunner()),
                  ('npy', NPYRunner()),
                  ('zfile', ZFileRunner()),
                  ])
 
-    codec_levels = od([('bloscpack', [1, 3, 7, 9]),
+    blosc_levels = [1, 3, 5, 7, 9]
+    codec_levels = od([('bloscpack_blosclz', blosc_levels),
+                       ('bloscpack_lz4', blosc_levels),
+                       ('bloscpack_lz4hc', blosc_levels),
+                       ('bloscpack_snappy', blosc_levels),
+                       ('bloscpack_zlib', blosc_levels),
                        ('tables', [0, 1, 3, 7, 9]),
                        ('npz', [1, ]),
                        ('npy', [0, ]),
