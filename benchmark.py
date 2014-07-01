@@ -19,6 +19,7 @@ from numpy.random import randn, poisson
 import pandas as pd
 import bloscpack as bp
 import bloscpack.sysutil as bps
+import bloscpack.pretty as bpp
 import joblib as jb
 import sh
 import yaml
@@ -396,11 +397,15 @@ if __name__ == '__main__':
     random.shuffle(sets)
 
     # make a huge dict
-    expconfig = dict([('dataset_sizes', dict((dataset_sizes.items()))),
+    expconfig = dict([('dataset_sizes', dict(((k,
+                       "Num elements: %d, size: %s" %
+                       (v, bpp.double_pretty_size(v*8)))
+                       for (k,v) in dataset_sizes.items()))),
                     ('storage_types', dict((storage_types.items()))),
                     ('complexity_types', list((complexity_types.keys()))),
                     ('codecs', list((codecs.keys()))),
-                    ('codec_levels', dict((((k,str(v)) for (k,v) in codec_levels.items())))),
+                    ('codec_levels', dict((((k,str(v))
+                     for (k,v) in codec_levels.items())))),
                     ('total datums', len(sets)),
                     ])
     expconfig = yaml.dump(expconfig, default_flow_style=False)
