@@ -305,15 +305,16 @@ class ZFileRunner(AbstractRunner):
 
 class PyTablesRunner(AbstractRunner):
 
-    def __init__(self):
-        self.name = 'pytables'
+    def __init__(self, complib='blosc'):
+        self.complib = complib
+        self.name = 'pytables_%s' % complib
         self.filename = 'array.hdf5'
 
     def compress(self):
         f = tables.open_file(self.storage, 'w')
         if self.level != 0:
             filters = tables.Filters(complevel=self.level,
-                                     complib='blosc',
+                                     complib=self.complib,
                                      fletcher32=False)
         else:
             filters = None
@@ -362,7 +363,14 @@ if __name__ == '__main__':
                  ('bloscpack_lz4hc', BloscpackRunner(cname='lz4hc')),
                  ('bloscpack_snappy', BloscpackRunner(cname='snappy')),
                  ('bloscpack_zlib', BloscpackRunner(cname='zlib')),
-                 ('tables', PyTablesRunner()),
+                 ('tables_blosc_blosclz', PyTablesRunner(complib='blosc')),
+                 ('tables_blosc_lz4', PyTablesRunner(complib='blosc:lz4')),
+                 ('tables_blosc_lz4hc', PyTablesRunner(complib='blosc:lz4hc')),
+                 ('tables_blosc_snappy', PyTablesRunner(complib='blosc:snappy')),
+                 ('tables_blosc_zlib', PyTablesRunner(complib='blosc:zlib')),
+                 ('tables_lzo', PyTablesRunner(complib='blosc:lzo')),
+                 ('tables_zlib', PyTablesRunner(complib='blosc:zlib')),
+                 ('tables_bzip2', PyTablesRunner(complib='blosc:bzip2')),
                  ('npz', NPZRunner()),
                  ('npy', NPYRunner()),
                  ('zfile', ZFileRunner()),
@@ -374,7 +382,15 @@ if __name__ == '__main__':
                        ('bloscpack_lz4hc', blosc_levels),
                        ('bloscpack_snappy', blosc_levels),
                        ('bloscpack_zlib', blosc_levels),
-                       ('tables', [0, 1, 3, 7, 9]),
+                       ('tables_blosc_blosclz', blosc_levels),
+                       ('tables_blosc_lz4', blosc_levels),
+                       ('tables_blosc_lz4hc', blosc_levels),
+                       ('tables_blosc_snappy', blosc_levels),
+                       ('tables_blosc_zlib', [1, 3, 7, 9]),
+                       ('tables_lzo', [1, 3, 7, 9]),
+                       ('tables_zlib', [1, 3, 7]),
+                       ('tables_bzip2', [1, 3, 7]),
+                       ('tables', [0, ]),
                        ('npz', [1, ]),
                        ('npy', [0, ]),
                        ('zfile', [1, 3, 7]),
