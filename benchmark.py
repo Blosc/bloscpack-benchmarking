@@ -202,9 +202,17 @@ class AbstractRunner(object):
         self.level = level
 
     def ratio(self):
-        """ Compute compression ratio. """
-        return (float(os.path.getsize(self.storage)) /
-                (self.ndarray.size * self.ndarray.dtype.itemsize))
+        """ Compute compression ratio.
+
+        As per:
+
+            http://en.wikipedia.org/wiki/Data_compression_ratio
+
+        Compression ratio is defined as: uncompressed size / compressed size
+
+        """
+        return ((self.ndarray.size * self.ndarray.dtype.itemsize) / 
+               (float(os.path.getsize(self.storage))))
 
 
 class BloscpackRunner(AbstractRunner):
