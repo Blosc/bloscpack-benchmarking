@@ -4,6 +4,8 @@
 """ Benchmarking utilities for comparing different Numpy array serialization
 tools. """
 
+from __future__ import print_function
+
 import abc
 import atexit
 import gc
@@ -329,19 +331,19 @@ class PyTablesRunner(AbstractRunner):
 
 if __name__ == '__main__':
 
-    print "----------------------------------"
+    print("----------------------------------")
     success = False
     start = time()
 
     # handle configuration
     result_file_name = gen_results_filename()
     sysconfig = yaml.dump(extract_config(), default_flow_style=False)
-    print sysconfig
+    print(sysconfig)
     sysconfig_file = result_file_name + '.sysconfig.yaml'
     with open(sysconfig_file, 'w') as fp:
         fp.write(sysconfig)
-    print 'sysconfig saved to: ' + sysconfig_file
-    print "----------------------------------"
+    print('sysconfig saved to: ' + sysconfig_file)
+    print("----------------------------------")
 
     # set up experimental parameters
     dataset_sizes = od([('small', 131072),
@@ -436,13 +438,13 @@ if __name__ == '__main__':
                     ('total datums', len(sets)),
                     ])
     expconfig = yaml.dump(expconfig, default_flow_style=False)
-    print expconfig
+    print(expconfig)
     expconfig_file = result_file_name + '.expconfig.yaml'
     with open(expconfig_file, 'w') as fp:
         fp.write(expconfig)
-    print 'experimental config saved to: ' + expconfig_file
-    print "Total number of configurations: %d" % len(sets)
-    print "----------------------------------"
+    print('experimental config saved to: ' + expconfig_file)
+    print("Total number of configurations: %d" % len(sets))
+    print("----------------------------------")
 
     # setup output DataFrame
     n = len(sets)
@@ -459,7 +461,7 @@ if __name__ == '__main__':
         if not success:
             result_csv = 'TEMPORARY_RESULTS.csv'
             results.to_csv(result_csv)
-            print 'ABORT: results acquired sofar saved to: ' + result_csv
+            print('ABORT: results acquired sofar saved to: ' + result_csv)
     atexit.register(temp_result)
 
     # setup the progressbar
@@ -531,5 +533,5 @@ if __name__ == '__main__':
     end = time()
     result_csv = result_file_name + '.csv'
     results.to_csv(result_csv, index_label='id')
-    print 'results saved to: ' + result_csv
-    print 'total execution time: %s' % str(datetime.timedelta(seconds=end-start))
+    print('results saved to: ' + result_csv)
+    print('total execution time: %s' % str(datetime.timedelta(seconds=end-start)))
