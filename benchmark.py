@@ -346,10 +346,10 @@ if __name__ == '__main__':
     print("----------------------------------")
 
     # set up experimental parameters
-    dataset_sizes = od([('small', 131072),
-                        ('mid', 1310720),
-                        ('large', 13107200),
-                        #('xlarge', 131072000),
+    dataset_sizes = od([('small', 2**(20)),
+                        ('mid', 2**(20) * 10),
+                        ('large', 2**(20) * 100),
+                        #('xlarge', 2**(20) * 1000),
                         ])
     storage_types = od([('ssd', '/tmp/bench'),
                         #('sd', '/mnt/sd/bench'),
