@@ -150,6 +150,18 @@ def make_poisson_dataset(size):
     """ Make the poisson dataset"""
     return poisson(5, size/8)
 
+def make_neuronal_dataset(size):
+
+    base = 2**(20)
+    to_load = {base: 'small',
+               base*10: 'mid',
+               base*100: 'large',
+               base*1000: 'xlarge',
+               }
+
+    return bp.unpack_ndarray_file(os.path.join(DATASET_ROOT,
+                                  'neuronal_%s.blp' % to_load[size]))
+
 #def make_sin_dataset(size):
 #    """ Make the dataset with medium entropy. """
 #    x = np.linspace(0, np.pi*2, 1e3)
@@ -361,6 +373,7 @@ if __name__ == '__main__':
     complexity_types = od([('arange', make_arange_dataset),
                            ('linspace', make_linspace_dataset),
                            ('poisson', make_poisson_dataset),
+                           ('neuronal', make_neuronal_dataset),
                            #('medium', make_complex_dataset),
                            #('high', make_random_dataset),
                            ])
