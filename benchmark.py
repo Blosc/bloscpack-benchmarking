@@ -136,7 +136,7 @@ def sync():
 
 def make_arange_dataset(size):
     """ Make the dataset using arange"""
-    return np.arange(size)
+    return np.arange(size, dtype='uint64')
 
 
 def make_linspace_dataset(size):
