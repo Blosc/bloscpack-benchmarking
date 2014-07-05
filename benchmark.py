@@ -398,6 +398,12 @@ if __name__ == '__main__':
                        ('zfile', [1, 3, 7]),
                        ])
 
+    number_repeats = od([('smalll', (10, 10)),
+                         ('mid', (5, 5)),
+                         ('large', (3, 1)),
+                         ('xlarge', (1, 1)),
+                         ])
+
     for name, location in storage_types.items():
         if not os.path.isdir(location):
             raise Exception("Path %s at: '%s' does not exist!" % (name, location))
@@ -427,14 +433,15 @@ if __name__ == '__main__':
 
     # make a huge dict
     expconfig = dict([('dataset_sizes', dict(((k,
-                       "Num elements: %d, size: %s" %
-                       (v, bpp.double_pretty_size(v*8)))
+                       "Size: %s" % (bpp.double_pretty_size(v),))
                        for (k,v) in dataset_sizes.items()))),
                     ('storage_types', dict((storage_types.items()))),
                     ('complexity_types', list((complexity_types.keys()))),
                     ('codecs', list((codecs.keys()))),
                     ('codec_levels', dict((((k,str(v))
                      for (k,v) in codec_levels.items())))),
+                    ('number_repeats', dict(((k, str(list(v)))
+                     for (k,v) in number_repeats.items()))),
                     ('total datums', len(sets)),
                     ])
     expconfig = yaml.dump(expconfig, default_flow_style=False)
@@ -492,20 +499,7 @@ if __name__ == '__main__':
         pbar.update(i)
         size, storage, complexity, codec, level = it
 
-        if size == 'small':
-            number = 10
-            repeat = 10
-        elif size == 'mid':
-            number = 5
-            repeat = 5
-        elif size == 'large':
-            number = 3
-            repeat = 1
-        elif size == 'xlarge':
-            number = 3
-            repeat = 1
-        else:
-            raise RuntimeError("No such size: '%s'" % size)
+        number, repeats = number_repeats('size')
 
         codec = codecs[codec]
         codec.configure(complexity_types[complexity](dataset_sizes[size]),
