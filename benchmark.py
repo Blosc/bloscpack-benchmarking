@@ -144,7 +144,7 @@ def make_arange_dataset(size):
 
 def make_linspace_dataset(size):
     """ Make the linspace dataset"""
-    return np.linspace(0, 1, size/8, dtyep='float64')
+    return np.linspace(0, 1, size/8, dtype='float64')
 
 def make_poisson_dataset(size):
     """ Make the poisson dataset"""
