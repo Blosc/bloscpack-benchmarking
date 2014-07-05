@@ -317,8 +317,7 @@ class ZFileRunner(AbstractRunner):
         it = jb.load(self.storage)
 
     def ratio(self):
-        return (float(self.storage_size) /
-                (self.ndarray.size * self.ndarray.dtype.itemsize))
+        return (self.ndarray.size * self.ndarray.dtype.itemsize) / (float(self.storage_size))
 
 
 class PyTablesRunner(AbstractRunner):
