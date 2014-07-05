@@ -135,35 +135,36 @@ def sync():
 
 
 def make_arange_dataset(size):
-    """ Make the dataset using arange"""
-    return np.arange(size, dtype='uint64')
+    """ Make the aranges dataset"""
+    return np.arange(size/8, dtype='uint64')
 
 
 def make_linspace_dataset(size):
-    return np.linspace(0, 1, size)
-
-
-def make_sin_dataset(size):
-    """ Make the dataset with medium entropy. """
-    x = np.linspace(0, np.pi*2, 1e3)
-    x = np.tile(x, size / len(x))
-    assert len(x) == size
-    y = np.sin(x)
-    del x
-    noise = np.random.randint(-1, 1, size) / 1e8
-    it = y + noise
-    del y
-    del noise
-    return it
-
-
-def make_gaussian_dataset(size):
-    """ Make a bunch of zero mean unit variance gaussian random numbers. """
-    return randn(size)
-
+    """ Make the linspace dataset"""
+    return np.linspace(0, 1, size/8, dtyep='float64')
 
 def make_poisson_dataset(size):
-    return poisson(5, size)
+    """ Make the poisson dataset"""
+    return poisson(5, size/8)
+
+#def make_sin_dataset(size):
+#    """ Make the dataset with medium entropy. """
+#    x = np.linspace(0, np.pi*2, 1e3)
+#    x = np.tile(x, size / len(x))
+#    assert len(x) == size
+#    y = np.sin(x)
+#    del x
+#    noise = np.random.randint(-1, 1, size) / 1e8
+#    it = y + noise
+#    del y
+#    del noise
+#    return it
+#
+#
+#def make_gaussian_dataset(size):
+#    """ Make a bunch of zero mean unit variance gaussian random numbers. """
+#    return randn(size)
+
 
 
 def reduce(result):
