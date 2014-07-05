@@ -516,7 +516,7 @@ if __name__ == '__main__':
         pbar.update(i)
         size, storage, complexity, codec, level = it
 
-        number, repeats = number_repeats[size]
+        number, repeat = number_repeats[size]
 
         codec = codecs[codec]
         codec.configure(complexity_types[complexity](dataset_sizes[size]),
