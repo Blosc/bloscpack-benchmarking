@@ -28,6 +28,9 @@ import yaml
 import tables
 
 
+DATASET_ROOT = os.path.expanduser('~/datasets')
+
+
 def noop():
     pass
 
