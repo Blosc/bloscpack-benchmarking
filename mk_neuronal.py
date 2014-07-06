@@ -14,5 +14,13 @@ for name, size in (('small', base / 8),
                     ('large', base * 100 / 8),
                     ):
     print 'save: %s' % name
-    np.save('neuronal_%sn' % name, a[:size])
-    bp.pack_ndarray_file(a[:size], 'neuronal_%sn.blp' % name)
+    np.save('neuronal_%s' % name, a[:size])
+    bp.pack_ndarray_file(a[:size], 'neuronal_%s.blp' % name)
+
+
+print 'make xlarge'
+x = np.hstack([a, a, a, a, a])
+size = base * 1000 /8
+name = 'xlarge'
+np.save('neuronal_%s' % name, x[:size])
+bp.pack_ndarray_file(x[:size], 'neuronal_%s.blp' % name)
