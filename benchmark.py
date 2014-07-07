@@ -156,17 +156,12 @@ def make_poisson_dataset(size):
     return poisson(5, size/8)
 
 def make_neuronal_dataset(size):
+    return make_dataset_from_name(size, 'neuronal')
 
-    base = 2**(20)
-    to_load = {base: 'small',
-               base*10: 'mid',
-               base*100: 'large',
-               base*1000: 'xlarge',
-               }
-
-    return bp.unpack_ndarray_file(os.path.join(DATASET_ROOT,
-                                  'neuronal_%s.blp' % to_load[size]))
 def make_bitcoin_dataset(size):
+    return make_dataset_from_name(size, 'bitcoin')
+
+def make_dataset_from_name(size, data_name):
 
     base = 2**(20)
     to_load = {base: 'small',
@@ -176,8 +171,7 @@ def make_bitcoin_dataset(size):
                }
 
     return bp.unpack_ndarray_file(os.path.join(DATASET_ROOT,
-                                  'bitcoin_%s.blp' % to_load[size]))
-
+                                  '%s_%s.blp' % (data_name, to_load[size])))
 #def make_sin_dataset(size):
 #    """ Make the dataset with medium entropy. """
 #    x = np.linspace(0, np.pi*2, 1e3)
