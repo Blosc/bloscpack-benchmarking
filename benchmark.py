@@ -166,6 +166,17 @@ def make_neuronal_dataset(size):
 
     return bp.unpack_ndarray_file(os.path.join(DATASET_ROOT,
                                   'neuronal_%s.blp' % to_load[size]))
+def make_bitcoin_dataset(size):
+
+    base = 2**(20)
+    to_load = {base: 'small',
+               base*10: 'mid',
+               base*100: 'large',
+               base*1000: 'xlarge',
+               }
+
+    return bp.unpack_ndarray_file(os.path.join(DATASET_ROOT,
+                                  'bitcoin_%s.blp' % to_load[size]))
 
 #def make_sin_dataset(size):
 #    """ Make the dataset with medium entropy. """
