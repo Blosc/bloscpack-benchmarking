@@ -19,6 +19,7 @@ import progressbar as pbar
 import numpy as np
 from numpy.random import randn, poisson
 import pandas as pd
+import blosc
 import bloscpack as bp
 import bloscpack.sysutil as bps
 import bloscpack.pretty as bpp
@@ -51,15 +52,19 @@ def extract_config():
 
     versions = v = {}
     v['bloscpack'] = bp.__version__
+    v['blosc']     = blosc.__version__
     v['numpy']     = np.__version__
     v['joblib']    = jb.__version__
+    v['tables']    = tables.__version__
     v['conda']     = str(sh.conda('--version', _tty_in=True)).strip()
-    v['python']     = str(sh.python('--version', _tty_in=True)).strip()
+    v['python']    = str(sh.python('--version', _tty_in=True)).strip()
 
     hashes = h = {}
     h['bloscpack'] = git_sha(os.path.dirname(bp.__file__))
     h['joblib'] = git_sha(jb.__path__[0])
+    h['blosc']  = git_sha(blosc.__path__[0])
     h['numpy'] = git_sha(np.__path__[0])
+    h['tables']  = git_sha(tables.__path__[0])
     h['benchmark'] = git_sha()
 
     c['uname'] = str(sh.uname('-a')).strip()
