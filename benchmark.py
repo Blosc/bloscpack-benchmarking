@@ -383,6 +383,7 @@ if __name__ == '__main__':
                            ('linspace', make_linspace_dataset),
                            ('poisson', make_poisson_dataset),
                            ('neuronal', make_neuronal_dataset),
+                           ('bitcoin', make_bitcoin_dataset),
                            #('medium', make_complex_dataset),
                            #('high', make_random_dataset),
                            ])
