@@ -425,8 +425,8 @@ if __name__ == '__main__':
                        ('zfile', [1, 3, 7]),
                        ])
 
-    number_repeats = od([('small', (10, 10)),
-                         ('mid', (5, 5)),
+    number_repeats = od([('small', (5, 5)),
+                         ('mid', (3, 3)),
                          ('large', (3, 1)),
                          ('xlarge', (1, 1)),
                          ])
