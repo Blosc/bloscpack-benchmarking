@@ -376,8 +376,8 @@ if __name__ == '__main__':
                         ('large', 2**(20) * 100),
                         #('xlarge', 2**(20) * 1000),
                         ])
-    storage_types = od([('ssd', '/tmp/bench'),
-                        #('sd', '/mnt/sd/bench'),
+    storage_types = od([('esb', '/tmp/bench'),
+                        ('ephemeral', '/media/ephemeral0/bench'),
                         ])
     complexity_types = od([('arange', make_arange_dataset),
                            ('linspace', make_linspace_dataset),
