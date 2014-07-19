@@ -400,6 +400,7 @@ if __name__ == '__main__':
                  #('tables_lzo', PyTablesRunner(complib='lzo')),
                  ('tables_zlib', PyTablesRunner(complib='zlib')),
                  #('tables_bzip2', PyTablesRunner(complib='bzip2')),
+                 ('tables', PyTablesRunner(complib='')),
                  ('npz', NPZRunner()),
                  ('npy', NPYRunner()),
                  ('zfile', ZFileRunner()),
