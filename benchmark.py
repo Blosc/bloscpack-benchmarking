@@ -29,7 +29,7 @@ import yaml
 import tables
 
 
-DATASET_ROOT = os.path.expanduser('~/datasets')
+DATASET_ROOT = os.path.expanduser('/home/ec2-user/datasets')
 
 
 def noop():
