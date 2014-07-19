@@ -10,6 +10,10 @@ def load_results_file(filename):
     df = df.set_index(['size', 'storage', 'complexity', 'codec', 'level'])
     return df
 
+def load_multiple_results_files(files):
+    """ Load many results files, concat them and sort. """
+    return pd.concat([load_results_file(f) for f in files]).sort()
+
 
 def result_filter(df, storage, size, codecs):
     # consider only ssd storage
